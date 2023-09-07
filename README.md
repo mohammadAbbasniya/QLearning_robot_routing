@@ -8,7 +8,7 @@ Q-learning is a model-free reinforcement learning algorithm to learn the value o
 We aim to implement one of Reinforcement Learning algorithms: the _Q-Learning algorithm_. We extend the **windy** maze with probabilistic outcome after an action and a few terminal states with rewards +100 and −50 respectively. The maze map is shown as follows:
 
 <p align='center'>
-  <img height="300" alt="genetic-example" src="README.imgs/maze.png">
+  <img height="300" alt="maze" src="README.imgs/maze.png">
 </p>
 
 We assume that the agent doesn’t know either the reward function or the transition model. 
@@ -20,15 +20,15 @@ If the moving direction is an obstacle, it will be bounced back to the original 
 ### Specifications
 - Algorithm should generate 50,000 trials starting from a random open square.
 - Each trial will end at the goal state and abort the train if the number of steps goes more than 100.
-- The agent will use the $\eps-ilon-Greedy$ algorithm to choose an action at each state along each trajectory, where $\epsilon = 0.1$.
+- The agent will use the $\epsilon-Greedy$ algorithm to choose an action at each state along each trajectory, where $\epsilon = 0.1$.
 - Along each trajectory, the agent will use Q-Learning to update the Q-values according to these equations:
-```math
-N(s, a) \leftarrow N(s, a) + 1
-Q(s, a) \leftarrow Q(s, a) + \frac{1}{Ns,a} \lbrac R(s, a) + γ max(a', Q(s′, a′)) − Q(s, a)
-```
+<p align='center'>
+  <img height="100" alt="equations" src="README.imgs/eq.png">
+</p>
+
 
 ## Implementation
-The implementation consists of four parts:
+The implementation in [main.py](main.py) consists of four parts:
 - **Definitions:** declaration variables and constants with regard to the instructions. This part of the implementation, represents the maze as a numpy-array that each cell in it with value 1 as an obstacle and 0 as an open square. In addition, the reward of each cell is represented as another numpy-array. The Q-table and N-table both are Hash-Tables, implemented using predefined Dictionary in python.
 
 - **Helper functions:** implementation of functions that provide needed algorithms.
@@ -54,20 +54,21 @@ The implementation consists of four parts:
 The access frequency at each state-action $N_{s,a}$:
 
 <p align='center'>
-  <img height="500" alt="genetic-example" src="README.imgs/N.png">
+  <img height="400" alt="access-frequency" src="README.imgs/N.png">
 </p>
-<hr>
+<br>
+
 
 The Q-value function at each state-action $Q(s, a)$;
 
 <p align='center'>
-  <img height="500" alt="genetic-example" src="README.imgs/Q.png">
+  <img height="400" alt="q-table" src="README.imgs/Q.png">
 </p>
-<hr>
+<br>
 
 
 The optimal action at each state-action:
 
 <p align='center'>
-  <img alt="genetic-example" src="README.imgs/navs.png">
+  <img alt="actions" src="README.imgs/navs.png">
 </p>
